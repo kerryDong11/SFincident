@@ -32,11 +32,11 @@ export default {
       'sidebar'
     ]),
     routes() {
-      var routes = this.$router.options.routes.filter(function(e){
-        return e.path !== '/message'
-      })
-      console.log(routes)
-      return routes.concat(global.antRouter) //把路由concat进去
+      // var routes = this.$router.options.routes.filter(function(e){
+      //   return e.path !== '/message'
+      // })
+     // console.log(routes)
+      return  this.$router.options.routes.concat(global.antRouter) //把路由concat进去
      },
     activeMenu() {
       const route = this.$route

@@ -4,7 +4,7 @@ var Random = Mock.Random;
 const data = Mock.mock({
   'items|10': [{
     'sid|+1': 1,
-    code: '@guid',
+    // code: '@guid',
     'status|1': [0,1,2,3],  //['uncreated', 'created', 'process','finish']
     author: 'name',
     'needNum|0-100':2,

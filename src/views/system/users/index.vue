@@ -1,25 +1,39 @@
 <template>
   <div class="app-container">
-    <el-header class="app-header"> 试验任务管理 </el-header>
+    <el-header class="app-header">用户管理</el-header>
     <el-main>
       <div class="filter-container">
         <el-input
           v-model="listQuery.projectId"
-          placeholder="项目编号号："
+          placeholder="用户名"
           style="width: 200px"
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
         <el-input
           v-model="listQuery.orderNumber"
-          placeholder="委托单编号:"
+          placeholder="工号"
           style="width: 200px"
           class="filter-item"
           @keyup.enter.native="handleFilter"
         />
         <el-select
           v-model="listQuery.projectStatus"
-          placeholder="当前状态："
+          placeholder="部门"
+          clearable
+          class="filter-item"
+          style="width: 130px"
+        >
+          <el-option
+            v-for="item in statusTypeOptions"
+            :key="item.key"
+            :label="item.display_name"
+            :value="item.key"
+          />
+        </el-select>
+        <el-select
+          v-model="listQuery.projectStatus"
+          placeholder="角色"
           clearable
           class="filter-item"
           style="width: 130px"
@@ -70,64 +84,17 @@
         >
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="120">
-          <template slot-scope="{ row, $index }">
+          <template slot-scope="{ row }">
             <el-button
-              v-if="row.haveNum > 0"
               type="text"
               size="small"
-              @click="createIncident(row)"
+              @click="updateRole(row)"
             >
-              新建工单
-            </el-button>
-            <el-button
-              v-if="row.waitNum > 0"
-              type="text"
-              size="small"
-              @click="handleModifyStatus(row)"
-            >
-              确认入库
-            </el-button>
-            <el-button
-              v-if="row.status !== 0"
-              type="text"
-              size="small"
-              @click="showDetail(row)"
-            >
-              查看
-            </el-button>
-            <el-button
-              v-if="row.finishNum > 0"
-              type="text"
-              size="small"
-              @click="handleInStore(row, $index)"
-            >
-              申请入库
+              编辑
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-dialog :visible.sync="dialogPvVisible" title="任务详情">
-        <el-form class="demo-form-inline main-form">
-          <el-row :gutter="40">
-            <el-col
-              v-for="(value, key) in pvData"
-              :key="key"
-              :xs="12"
-              :sm="12"
-              :lg="8"
-            >
-              <el-form-item :label="key">
-                  <el-input :value="value"  :disabled="true"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <!-- <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogPvVisible = false"
-            >Confirm</el-button
-          >
-        </span> -->
-      </el-dialog>
     </el-main>
   </div>
 </template>
@@ -144,7 +111,7 @@ const statusTypeOptions = [
 ];
 
 export default {
-  name: "management",
+  name: "users",
   data() {
     return {
       dialogPvVisible: false,
@@ -164,14 +131,12 @@ export default {
     this.getList();
   },
   methods: {
-    showDetail(row) {
+    updateRole(row) {
       //查看任务具体内容
-      this.dialogPvVisible = true;
-      console.log(row);
-      this.pvData = row;
+     this.$router.push({ path: "/updateUser" });
     },
     add() {
-      this.$router.push({ path: "/newpro" });
+      this.$router.push({ path: "/addUser" });
     },
     getTableColumnList(list) {
       var obj = list[0];

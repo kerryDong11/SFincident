@@ -7,11 +7,11 @@
             <svg-icon icon-class="peoples" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">New Visits</div>
+            <div class="card-panel-text">处理中工单</div>
             <count-to
               :start-val="0"
               :end-val="102400"
-              :duration="2600"
+              :duration="1"
               class="card-panel-num"
             />
           </div>
@@ -19,11 +19,11 @@
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-message">
-            <svg-icon icon-class="message" class-name="card-panel-icon" />
+          <div class="card-panel-icon-wrapper icon-money">
+            <svg-icon icon-class="lock" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">Messages</div>
+            <div class="card-panel-text">待分配工单</div>
             <count-to
               :start-val="0"
               :end-val="81212"
@@ -35,11 +35,11 @@
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-money">
-            <svg-icon icon-class="money" class-name="card-panel-icon" />
+          <div class="card-panel-icon-wrapper icon-message">
+            <svg-icon icon-class="skill" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">Purchases</div>
+            <div class="card-panel-text">已完成工单</div>
             <count-to
               :start-val="0"
               :end-val="9280"
@@ -55,7 +55,7 @@
             <svg-icon icon-class="shopping" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">Shoppings</div>
+            <div class="card-panel-text">派给我的工单</div>
             <count-to
               :start-val="0"
               :end-val="13600"
@@ -69,14 +69,14 @@
     <div class="filter-container">
       <el-input
         v-model="listQuery.title"
-        placeholder="Title"
+        placeholder="工单编号"
         style="width: 200px"
         class="filter-item"
         @keyup.enter.native="handleFilter"
       />
       <el-select
         v-model="listQuery.importance"
-        placeholder="Imp"
+        placeholder="工单状态"
         clearable
         style="width: 90px"
         class="filter-item"
@@ -88,33 +88,9 @@
           :value="item"
         />
       </el-select>
-      <el-select
-        v-model="listQuery.type"
-        placeholder="Type"
-        clearable
-        class="filter-item"
-        style="width: 130px"
-      >
-        <el-option
-          v-for="item in calendarTypeOptions"
-          :key="item.key"
-          :label="item.display_name + '(' + item.key + ')'"
-          :value="item.key"
-        />
-      </el-select>
-      <el-select
-        v-model="listQuery.sort"
-        style="width: 140px"
-        class="filter-item"
-        @change="handleFilter"
-      >
-        <el-option
-          v-for="item in sortOptions"
-          :key="item.key"
-          :label="item.label"
-          :value="item.key"
-        />
-      </el-select>
+      <el-date-picker v-model="value1" class="selection-date" type="date" placeholder="选择日期">
+      </el-date-picker>
+
       <el-button
         v-waves
         class="filter-item"
@@ -158,7 +134,12 @@
 </template>
 
 <script>
+import CountTo from "vue-count-to";
+
 export default {
+  components: {
+    CountTo,
+  },
   data() {
     return {
       tableColumnList: [],

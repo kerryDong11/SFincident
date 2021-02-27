@@ -51,44 +51,56 @@ export const constantRoutes = [
     path: '/message',
     component: Layout,
     redirect: '/message',
+    hidden: true,
     children: [{
       path: '/message',
       name: 'Message',
       component: () => import('@/views/message/index'),
       meta: { title: 'MESSAGE', icon: 'dashboard' }
     }]
-  }
+  },
+  {
+    path: '/addUser',
+    component: Layout,
+    name: 'addUser',
+    children: [{
+      path: '/addUser',
+      name: 'AddUser',
+      component: () => import('@/views/system/users/add/index'),
+    }],
+    hidden: true, // (默认 false)
+    meta: { title: '新增用户' }
+
+  },
+  {
+    path: '/updateUser',
+    component: Layout,
+    name: 'updateUser',
+    children: [{
+      path: '/updateUser',
+      name: 'UpdateUser',
+      component: () => import('@/views/system/users/update/index'),
+    }],
+    hidden: true, // (默认 false)
+    meta: { title: '编辑用户' }
+  },
 ]
 export const scynRoutes = {
+
   'admin': {
     'path': '/system',
-    'redirect': '/menu',
+    'redirect': '/system/users',
     'component': 'Layout',
     'meta': {
       'title': '系统管理',
       'icon': 'form'
     },
+
     'children': [
       {
-        'path': '/menu',
-        'name': 'menu',
-        'component': 'menu/index',
-        'meta': {
-          'title': '菜单管理',
-          'icon': 'table'
-        }
-      }, {
-        'path': '/roles',
-        'name': 'roles',
-        'component': 'roles/index',
-        'meta': {
-          'title': '角色管理',
-          'icon': 'table'
-        }
-      }, {
-        'path': '/administrator',
-        'name': 'administrator',
-        'component': 'dashboard/index',
+        'path': '/users',
+        'name': 'users',
+        'component': 'system/users/index',
         'meta': {
           'title': '用户管理',
           'icon': 'table'
@@ -96,7 +108,7 @@ export const scynRoutes = {
       }
     ]
   },
-  'information':{
+  'information': {
     'path': '/information',
     'name': 'information',
     'component': 'Layout',
@@ -114,7 +126,7 @@ export const scynRoutes = {
           'title': '委托商管理',
           'icon': 'table'
         }
-      },{
+      }, {
         'path': '/trialDispatch',
         'name': 'trialDispatch',
         'component': 'TrialDispatch/index',
@@ -124,22 +136,22 @@ export const scynRoutes = {
         }
       }]
   },
-  'equipment':{
-       'path': '/equipment',
-      
-      'component': 'Layout',
-      'redirect': '/equipments',
-      
-      'children': [
-        {
-          'path': '/equipment',
-          'name': 'equipment',
-          'component': 'equipment/index',
-          'meta': {
-            'title': '设备管理',
-            'icon': 'table'
-          }
-        }]
+  'equipment': {
+    'path': '/equipment',
+
+    'component': 'Layout',
+    'redirect': '/equipments',
+
+    'children': [
+      {
+        'path': '/equipment',
+        'name': 'equipment',
+        'component': 'equipment/index',
+        'meta': {
+          'title': '设备管理',
+          'icon': 'table'
+        }
+      }]
   },
   'warehouse': {
     'path': '/warehouse',
@@ -187,11 +199,11 @@ export const scynRoutes = {
       }
     ]
   },
-  'project':{
+  'project': {
     'path': '/project',
     'redirect': '/project/program/managepro',
     'component': 'Layout',
-    'name':"project",
+    'name': "project",
     'meta': {
       'title': '工单',
       'icon': 'form'
@@ -206,7 +218,7 @@ export const scynRoutes = {
           'title': '实验项目',
           'icon': 'table'
         },
-        children:[
+        children: [
           {
             path: '/managepro',
             component: 'project/program/management/index',
@@ -236,7 +248,7 @@ export const scynRoutes = {
           'title': '工单-实验室',
           'icon': 'table'
         },
-        children:[
+        children: [
           {
             path: '/incidentOverview',
             component: 'project/laboratory/incidentOverview/index',
@@ -260,7 +272,7 @@ export const scynRoutes = {
           'title': '工单-实验室',
           'icon': 'table'
         },
-        children:[
+        children: [
           {
             path: '/experIncident',
             component: 'project/experimenter/incident/index',
