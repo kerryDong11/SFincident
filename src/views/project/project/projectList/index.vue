@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-header class="app-header"> 试验任务管理 </el-header>
+    <el-header class="app-header"> 项目管理 </el-header>
     <el-main>
       <div class="filter-container">
         <el-input
@@ -48,11 +48,6 @@
           @click="refresh"
           icon="el-icon-refresh"
         ></el-button>
-        <el-button
-          type="primary"
-          @click="exportExecel"
-          icon="el-icon-download"
-        ></el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -72,30 +67,13 @@
         <el-table-column fixed="right" label="操作" width="120">
           <template slot-scope="{ row }">
             <el-button
-              v-if="row.haveNum > 0"
-              type="text"
-              size="small"
-              @click="createIncident(row)"
-            >
-              新建工单
-            </el-button>
-            <el-button
-              v-if="row.waitNum > 0"
-              type="text"
-              size="small"
-              @click="handleInStore(row)"
-            >
-              确认入库
-            </el-button>
-            <el-button
               v-if="row.status !== 0"
               type="text"
               size="small"
               @click="showDetail(row)"
             >
               查看
-            </el-button>
-            
+            </el-button>           
           </template>
         </el-table-column>
       </el-table>
@@ -115,11 +93,6 @@
             </el-col>
           </el-row>
         </el-form>
-        <!-- <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogPvVisible = false"
-            >Confirm</el-button
-          >
-        </span> -->
       </el-dialog>
     </el-main>
   </div>
@@ -137,7 +110,7 @@ const statusTypeOptions = [
 ];
 
 export default {
-  name: "management",
+  name: "projectLst",
   data() {
     return {
       dialogPvVisible: false,

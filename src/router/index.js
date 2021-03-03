@@ -73,6 +73,31 @@ export const constantRoutes = [
 
   },
   {
+    path: '/uploadUser',
+    component: Layout,
+    name: 'uploadUser',
+    children: [{
+      path: '/uploadUser',
+      name: 'UploadUser',
+      component: () => import('@/views/system/users/uploadUser/index'),
+    }],
+    hidden: true, // (默认 false)
+    meta: { title: '上传用户信息表' }
+
+  },
+  {
+    path: '/comfirmStore',
+    component: Layout,
+    name: 'comfirmStore',
+    children: [{
+      path: '/comfirmStore',
+      name: 'ComfirmStore',
+      component: () => import('@/views/project/program/confirm'),
+    }],
+    hidden: true, // (默认 false)
+    meta: { title: '入库确认' }
+  },
+  {
     path: '/updateUser',
     component: Layout,
     name: 'updateUser',
@@ -199,94 +224,130 @@ export const scynRoutes = {
       }
     ]
   },
-  'project': {
+  "laboratory":{
+      'path': '/laboratory',
+      'name': 'laboratory',
+      'redirect': '/project/laboratory/',
+      'component': 'Layout',
+      'meta': {
+        'title': '工单-实验室',
+        'icon': 'table'
+      },
+      children: [
+        {
+          path: '/incidentOverview',
+          component: 'project/laboratory/incidentOverview/index',
+          name: 'incidentOverview',
+          meta: { title: '工单 实验室主管' }
+        },
+        {
+          path: '/assignIncident',
+          component: 'project/laboratory/assignIncident/index',
+          name: 'assignIncident',
+          meta: { title: '实验室主管-工单分配' }
+        }
+      ]
+    
+  },
+  "experimenter":
+  {
+    'path': 'experimenter',
+    'name': 'experimenter',
+    'redirect': '/project/experimenter/',
+    'component': 'Layout',
+    'meta': {
+      'title': '工单-试验员',
+      'icon': 'table'
+    },
+    children: [
+      {
+        path: '/experIncident',
+        component: 'project/experimenter/incident/index',
+        name: 'experIncident',
+        meta: { title: '工单' }
+      },
+      {
+        path: '/incidentprocess',
+        component: 'project/experimenter/process/index',
+        name: 'incidentprocess',
+        meta: { title: '领取工单任务' }
+      }
+    ]
+  },
+  'project':{
     'path': '/project',
-    'redirect': '/project/program/managepro',
+    'redirect': '/project/project',
     'component': 'Layout',
     'name': "project",
     'meta': {
-      'title': '工单',
+      'title': '项目管理',
       'icon': 'form'
     },
     'children': [
       {
-        'path': 'program',
-        'name': 'program',
-        'redirect': 'project/program/management/index',
-        component: 'project/program/index', // Parent router-view
-        'meta': {
-          'title': '实验项目',
-          'icon': 'table'
-        },
-        children: [
-          {
-            path: '/managepro',
-            component: 'project/program/management/index',
-            name: 'management',
-            meta: { title: '试验任务管理' }
-          },
-          {
-            path: '/newpro',
-            component: 'project/program/newProgram/index',
-            name: 'newProgram',
-            meta: { title: '新建试验任务' }
-          },
-          {
-            path: '/newProincident',
-            component: 'project/program/newIncident/index',
-            name: 'newProincident',
-            meta: { title: '创建工单' }
-          }
-        ]
+        path: '/newPoject',
+        component: 'project/project/newProject/index',
+        name: 'newPoject',
+        meta: { title: '新建项目' }
       },
       {
-        'path': 'laboratory',
-        'name': 'laboratory',
-        'redirect': '/project/laboratory/incidentOverview/index',
-        component: 'project/laboratory/index', // Parent router-view
-        'meta': {
-          'title': '工单-实验室',
-          'icon': 'table'
-        },
-        children: [
-          {
-            path: '/incidentOverview',
-            component: 'project/laboratory/incidentOverview/index',
-            name: 'incidentOverview',
-            meta: { title: '工单 实验室主管' }
-          },
-          {
-            path: '/assignIncident',
-            component: 'project/laboratory/assignIncident/index',
-            name: 'assignIncident',
-            meta: { title: '实验室主管-工单分配' }
-          }
-        ]
-      },
-      {
-        'path': 'experimenter',
-        'name': 'experimenter',
-        'redirect': '/project/experimenter/incident',
-        component: 'project/experimenter/index', // Parent router-view
-        'meta': {
-          'title': '工单-实验室',
-          'icon': 'table'
-        },
-        children: [
-          {
-            path: '/experIncident',
-            component: 'project/experimenter/incident/index',
-            name: 'experIncident',
-            meta: { title: '工单' }
-          },
-          {
-            path: 'incidentprocess',
-            component: 'project/experimenter/process/index',
-            name: 'incidentprocess',
-            meta: { title: '领取工单任务' }
-          }
-        ]
+        path: '/projectList',
+        component: 'project/project/projectList/index',
+        name: 'projectList',
+        meta: { title: '项目管理' }
       }
+    ]
+  },
+  'program': {
+    'path': '/program',
+    'redirect': '/project/program/managepro',
+    'component': 'Layout',
+    'name': "program",
+    'meta': {
+      'title': '试验项目',
+      'icon': 'form'
+    },
+    'children': [
+      {
+        path: '/managepro',
+        component: 'project/program/management/index',
+        name: 'management',
+        meta: { title: '试验任务管理' }
+      },
+      {
+        path: '/newpro',
+        component: 'project/program/newProgram/index',
+        name: 'newProgram',
+        meta: { title: '新建试验任务' }
+      },
+      {
+        path: '/newProincident',
+        component: 'project/program/newIncident/index',
+        name: 'newProincident',
+        meta: { title: '创建工单' }
+      },
+      {
+        path: '/incident',
+        component: 'project/program/incident/index',
+        name: 'incident',
+        meta: { title: '工单' }
+      }
+      // {
+
+      //   'path': 'program',
+      //   'name': 'program',
+      //   'redirect': 'project/program/management/index',
+      //   component: 'project/program/index', // Parent router-view
+      //   'meta': {
+      //     'title': '实验项目',
+      //     'icon': 'table'
+      //   },
+      //   children: [
+         
+      //   ]
+      // },
+    
+      
     ]
   }
 }

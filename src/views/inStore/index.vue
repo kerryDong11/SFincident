@@ -65,9 +65,9 @@
         </el-button>
       </div>
       <div class="tool-button">
-        <el-button @click="resetDateFilter">新增</el-button>
-        <el-button @click="clearFilter">刷新</el-button>
-        <el-button @click="clearFilter">导出</el-button>
+        <el-button @click="add">新增</el-button>
+        <el-button @click="refresH">刷新</el-button>
+        <el-button @click="exportExcel">导出</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -148,6 +148,9 @@ export default {
         this.total = response.data.total;
         this.listLoading = false;
       });
+    },
+    add(){
+      this.$router.push({path:"/newInStore"})
     },
     showDetail(row){
       var id = row.sid;

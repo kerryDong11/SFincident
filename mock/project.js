@@ -8,7 +8,7 @@ const data = Mock.mock({
     'status|1': [0,1,2,3],  //['uncreated', 'created', 'process','finish']
     author: 'name',
     'needNum|0-100':2,
-    waitNum:0,
+    'waitNum|0-100':2,
     haveNum:0,
     finishNum:0,
     display_time: '@datetime'

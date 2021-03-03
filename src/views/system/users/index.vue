@@ -56,6 +56,8 @@
         </el-button>
       </div>
       <div class="tool-button">
+        <el-button type="primary" @click="upload">上传表格</el-button>
+
         <el-button type="primary" @click="add" icon="el-icon-plus"></el-button>
         <el-button
           type="primary"
@@ -85,12 +87,11 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="120">
           <template slot-scope="{ row }">
-            <el-button
-              type="text"
-              size="small"
-              @click="updateRole(row)"
-            >
+            <el-button type="text" size="small" @click="updateRole(row)">
               编辑
+            </el-button>
+            <el-button type="text" size="small" @click="deleteeRole(row)">
+              删除
             </el-button>
           </template>
         </el-table-column>
@@ -102,14 +103,14 @@
 <script>
 //import myTable from "../table/simpleTable";
 //import ComplexTable from "@/views/table/complex-table";
-import { fetchList } from "@/api/project";
+//import { getUsersList } from "@/api/user";
 const statusTypeOptions = [
   { display_name: "未创建任务", key: "0" },
   { display_name: "已创建任务", key: "1" },
   { display_name: "任务中", key: "2" },
   { display_name: "完成", key: "3" },
 ];
-
+import { getUsersList } from "@/api/user";
 export default {
   name: "users",
   data() {
@@ -131,9 +132,13 @@ export default {
     this.getList();
   },
   methods: {
+    upload(){
+      this.$router.push({ path: "/uploadUser" });
+
+    },
     updateRole(row) {
       //查看任务具体内容
-     this.$router.push({ path: "/updateUser" });
+      this.$router.push({ path: "/updateUser" });
     },
     add() {
       this.$router.push({ path: "/addUser" });
@@ -150,16 +155,29 @@ export default {
     },
     getList() {
       this.listLoading = true;
-      fetchList().then((response) => {
-        this.list = response.data.items;
-        this.getTableColumnList(this.list);
-        this.total = response.data.total;
+
+      getUsersList().then((response) => {
+        console.log(response);
         this.listLoading = false;
-        // Just to simulate the time of the request
-        // setTimeout(() => {
-        //   this.listLoading = false;
-        // }, 1.5 * 1000);
+        this.list = response;
+        this.getTableColumnList(this.list);
+        console.log(response);
       });
+      // this.$axios.get("http://127.0.0.1:8000/up/users").then((response) => {
+      //   //let data = response.data;
+
+      // });
+      // getUsersList().then((response) => {
+      //   console.log(response)
+      // this.list = response.data.items;
+      // this.getTableColumnList(this.list);
+      // this.total = response.data.total;
+      // this.listLoading = false;
+      // Just to simulate the time of the request
+      // setTimeout(() => {
+      //   this.listLoading = false;
+      // }, 1.5 * 1000);
+      //});
     },
   },
 };

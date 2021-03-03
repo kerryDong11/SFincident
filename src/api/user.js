@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function getUsersList() {
+  return request({
+    url: '/api/up/users/',
+    method: 'get'
+   
+  })
+}
+
 export function login(data) {
   return request({
     url: '/vue-admin-template/user/login',
